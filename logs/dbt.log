@@ -63,3 +63,16 @@ https://docs.getdbt.com/docs/configure-your-profile
 [0m20:11:34.046677 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000218DB2B7050>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000218DB2E1820>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000218DB2E14C0>]}
 [0m20:11:34.046677 [debug] [MainThread]: Flushing usage events
 [0m20:11:34.795827 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m10:08:22.198310 [debug] [MainThread]: Got an exception trying to initialize tracking
+
+
+============================== 10:08:22.262311 | 3b0e34f8-ed09-4670-987f-c3a0048483a4 ==============================
+[0m10:08:22.262311 [info ] [MainThread]: Running with dbt=1.11.7
+[0m10:08:22.262311 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'empty': 'False', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\patry\\.dbt', 'indirect_selection': 'eager', 'invocation_command': 'dbt run', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m10:08:22.263310 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\patry\Repos\dbt-course\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m10:08:22.263310 [debug] [MainThread]: Command `dbt run` failed at 10:08:22.263310 after 0.12 seconds
+[0m10:08:22.263310 [debug] [MainThread]: Flushing usage events
