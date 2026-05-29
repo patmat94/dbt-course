@@ -1,5 +1,10 @@
 models:
   - name: dim_listings_cleansed
+    data_tests:
+      - minimum_row_count:
+          arguments:
+            min_row_count: 1000
+          severity: error
     columns:
       - name: listing_id
         data_tests:
@@ -19,15 +24,12 @@ models:
           - accepted_values:
               values: ['Entire home/apt', 'Private room', 'Shared room', 'Hotel room']
 
+      - name: minimum_nights
+        data_tests:
+          - positive_values
+
   - name: dim_hosts_cleansed
     columns:
-      - name: host_id
-        data_tests:
-          - unique
-          - not_null
-      - name: host_name
-        data_tests:
-          - not_null
       - name: is_superhost
         data_tests:
          - accepted_values:
@@ -52,3 +54,27 @@ models:
         data_tests:
          - accepted_values:
               values: ['positive', 'negative', 'neutral']
+
+  - name: dim_hosts_cleansed
+    config:
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [host_id]
+    columns:
+      - name: host_id
+        data_type: integer
+        constraints:
+          - type: not_null
+          - type: unique
+      - name: host_name
+        data_type: text
+        constraints:
+          - type: not_null
+      - name: is_superhost
+        data_type: text
+      - name: updated_at
+        data_type: timestamp
+      - name: created_at
+        data_type: timestamp
