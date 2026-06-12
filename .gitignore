@@ -1,1 +1,9 @@
 set-env.ps1
+
+airbnb/target/
+airbnb/dbt_packages/
+airbnb/logs/
+
+airbnb/profiles.yml
+airbnb/.user.yml
+airbnb/_prod_profiles/.user.yml
