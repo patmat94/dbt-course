@@ -1,6 +1,7 @@
 set-env.ps1
 
 airbnb/target/
+airbnb/target-prod/
 airbnb/dbt_packages/
 airbnb/logs/
 
