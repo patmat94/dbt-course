@@ -5,7 +5,8 @@ models:
       - minimum_row_count:
           arguments:
             min_row_count: 1000
-          severity: error
+          config:
+            severity: error
     columns:
       - name: listing_id
         description: Primary key for the listing
@@ -26,8 +27,8 @@ models:
         description: Type of the apartment / room
         data_tests:
           - accepted_values:
-              values:
-                ["Entire home/apt", "Private room", "Shared room", "Hotel room"]
+              arguments:
+                values: ["Entire home/apt", "Private room", "Shared room", "Hotel room"]
 
       - name: minimum_nights
         description: '{{ doc("dim_listing_cleansed_minimum_nights") }}'
@@ -77,26 +78,31 @@ models:
         data_type: text
         data_tests:
           - accepted_values:
-              values: ["t", "f"]
+              arguments:
+                values: ["t", "f"]
 
   - name: dim_listings_w_hosts
     tests:
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: source('airbnb', 'listings')
+          arguments:
+            compare_model: source('airbnb', 'listings')
     columns:
       - name: price_usd
         tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
+              arguments:
+                column_type: number
           - dbt_expectations.expect_column_quantile_values_to_be_between:
-              quantile: .99
-              min_value: 50 # (Optional)
-              max_value: 500 # (Optional)
+              arguments:
+                quantile: .99
+                min_value: 50
+                max_value: 500
           - dbt_expectations.expect_column_max_to_be_between:
-              max_value: 5000 # (Optional)
               config:
                 severity: warn
 
+              arguments:
+                max_value: 5000
   - name: fct_reviews
     columns:
       - name: listing_id
@@ -115,4 +121,5 @@ models:
       - name: review_sentiment
         data_tests:
           - accepted_values:
-              values: ["positive", "negative", "neutral"]
+              arguments:
+                values: ["positive", "negative", "neutral"]
