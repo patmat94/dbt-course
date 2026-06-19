@@ -39,11 +39,14 @@ models:
     +materialized: view
     dim:
       +materialized: table
+      +static_analysis: strict
     src:
       +materialized: ephemeral
+      +static_analysis: strict
     # Config indicated by + and applies to all files under models/example/
     fct:
       +tags: ["fact"]
+      +static_analysis: strict
 
 data_tests:
   +store_failures: true
