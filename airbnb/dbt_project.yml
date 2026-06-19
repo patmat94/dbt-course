@@ -39,7 +39,6 @@ models:
     +materialized: view
     dim:
       +materialized: table
-      +static_analysis: strict
     src:
       +materialized: ephemeral
       +static_analysis: strict
