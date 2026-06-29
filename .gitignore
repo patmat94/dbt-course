@@ -14,3 +14,5 @@ airbnb/.user.yml
 airbnb/_prod_profiles/.user.yml
 
 .vscode
+
+/my_dbt_dagster_project
