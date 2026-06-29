@@ -1,3 +1,6 @@
+import json
+from typing import Any, Mapping
+
 from agate import default
 from dagster import AssetExecutionContext, DailyPartitionsDefinition
 from dagster_dbt import DagsterDbtTranslator, DbtCliResource, dbt_assets, default_metadata_from_dbt_resource_props
@@ -24,11 +27,23 @@ class CustomDagsterDbtTranlator(DagsterDbtTranslator):
             dagster_dbt_translator=CustomDagsterDbtTranlator())
 
 def dbtlearn_partitioned_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
-    (
-        first_partition,
-        last_partition
-    ) = context.asset_partitions_time_window_for_output(
-        list(context.selected_output_names) [0]
+    partitioned_output_name = None
+    for output_name in context.selected_output_names:
+        try:
+            context.asset_partitions_def_for_output(output_name)
+            partitioned_output_name = output_name
+            break
+        except Exception:
+            continue
+
+    if partitioned_output_name is None:
+        raise ValueError(
+            "No partitioned output was found for dbtlearn_partitioned_dbt_assets. "
+            "This run must target a partitioned model asset, not a dbt test asset."
+        )
+
+    first_partition, last_partition = context.asset_partitions_time_window_for_output(
+        partitioned_output_name
     )
     dbt_vars = {"start_date": str(first_partition), "end_date": str(last_partition)}
     dbt_args = ["build", "--vars", json.dumps(dbt_vars)]
